@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ROOTDIR="."
+
+echo "SOURCE = `find $ROOTDIR -name \"*.cpp\" -printf "%f "`" > sourcelist
+
+echo -e "SOURCEPATH = `find $ROOTDIR -name \"*.cpp\"|xargs echo`" >> sourcelist
