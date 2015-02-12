@@ -5,3 +5,5 @@ ROOTDIR="."
 echo "SOURCE = `find $ROOTDIR -name \"*.cpp\" -printf "%f "`" > sourcelist
 
 echo -e "SOURCEPATH = `find $ROOTDIR -name \"*.cpp\"|xargs echo`" >> sourcelist
+
+echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
