@@ -13,3 +13,12 @@ echo -e "SOURCEPATH = $(find $ROOTDIR \( $SUBDIR \) \
 	-a -prune -o -name *.cpp -print|xargs echo)" >> sourcelist
 
 # echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
+
+echo -e "SUBMODULEDIR = $(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") \
+	| xargs echo)" >> sourcelist
+
+echo -e "SUBMODULELOC = $(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") \
+	| xargs -i echo -L{} | xargs echo)" >> sourcelist
+
+echo -e "SUBMODULE = $(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) \
+	| xargs -i echo -l{} | xargs echo)" >> sourcelist
