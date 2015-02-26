@@ -62,7 +62,7 @@ cleansub: $(CLEANSUBDIRS)
 $(CLEANSUBDIRS): 
 	$(MAKE) -C $(@:clean-%=%) clean
 
-cleanallsub: $(CLEANSUBDIRS)
+cleanallsub: $(CLEANALLSUBDIRS)
 $(CLEANALLSUBDIRS): 
 	$(MAKE) -C $(@:cleanall-%=%) cleanall
 # <= Clean submodule
