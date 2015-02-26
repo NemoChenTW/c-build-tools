@@ -38,7 +38,12 @@ STATICLIB = ar rcv
 CLEANSUBDIRS = $(SUBMODULEDIR:%=clean-%)
 CLEANALLSUBDIRS = $(SUBMODULEDIR:%=cleanall-%)
 
-all: $(EXE)
+
+mainproject: $(EXE)
+
+all:
+	make sub
+	make mainproject
 
 $(EXE): $(OBJS)
 	$(CC) $(LINKFLAG) $(EXE) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
