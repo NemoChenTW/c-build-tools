@@ -2,8 +2,14 @@
 
 ROOTDIR="."
 
-echo "SOURCE = `find $ROOTDIR -name \"*.cpp\" -printf "%f "`" > sourcelist
+# 此項目尚須手動修改
+# SUBDIR="-path ./src/submodule -o -path ./src/testDir"
+SUBDIR="-path ./src/submodule"
 
-echo -e "SOURCEPATH = `find $ROOTDIR -name \"*.cpp\"|xargs echo`" >> sourcelist
+echo -e "SOURCE = $(find $ROOTDIR \( $SUBDIR \) \
+	-a -prune -o -name *.cpp -printf "%f"|xargs echo)" > sourcelist
+
+echo -e "SOURCEPATH = $(find $ROOTDIR \( $SUBDIR \) \
+	-a -prune -o -name *.cpp -print|xargs echo)" >> sourcelist
 
 # echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
