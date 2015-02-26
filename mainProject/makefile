@@ -73,7 +73,7 @@ clean:
 
 cleanall:
 	make cleanallsub
-	rm -f *.o $(EXE)
+	rm -f *.o *.a $(EXE) 
 
 
 .PHONY: sub $(SUBMODULEDIR)
