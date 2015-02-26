@@ -49,7 +49,7 @@ $(OBJS): $(SOURCEPATH)
 liba: $(ALIB)
 
 $(ALIB): $(OBJS)
-	$(STATICLIB) $(ALIB)
+	$(STATICLIB) $(ALIB) $(OBJS)
 
 # => Build submodule
 sub: $(SUBMODULEDIR)
