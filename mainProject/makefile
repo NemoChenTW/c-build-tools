@@ -5,13 +5,9 @@ PROJECTDIR = $(shell pwd)
 EXE = $(notdir $(basename $(PROJECTDIR)))
 endif
 
+include sourcelist
 ALIB = "lib$(EXE).a"
 OLIB = "lib$(EXE).o"
-
-DIR = src/
-
-SOURCE = *.cpp
-SOURCELOCATION = $(DIR:/=/$(SOURCE))
 
 INCLUDEPATH = -Isrc/
 INCLUDEFILE = 
@@ -39,30 +35,47 @@ endif
 
 STATICLIB = ar rcv
 
+CLEANSUBDIRS = $(SUBMODULEDIR:%=clean-%)
+CLEANALLSUBDIRS = $(SUBMODULEDIR:%=cleanall-%)
+
 all: $(EXE)
 
-bl:
-	$(MAKE) liba -C src/submodule && make
-
-rbl:
-	make cleanall && make bl
-
 $(EXE): $(OBJS)
-	$(CC) $(LINKFLAG) $(EXE) $(OBJS) $(SUBLIB) $(LIB) $(LIBPATH) $(SO)
+	$(CC) $(LINKFLAG) $(EXE) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
 
-$(OBJS): $(SOURCELOCATION)
-	$(CC) $(CCFLAG) $(SOURCELOCATION) $(INCLUDEPATH) $(INCLUDEFILE)
+$(OBJS): $(SOURCEPATH)
+	$(CC) $(CCFLAG) $(SOURCEPATH) $(INCLUDEPATH) $(INCLUDEFILE)
 
 liba: $(ALIB)
 
 $(ALIB): $(OBJS)
 	$(STATICLIB) $(ALIB)
 
+# => Build submodule
+sub: $(SUBMODULEDIR)
+$(SUBMODULEDIR):
+	$(MAKE) liba -C $@
+# <= Build submodule
+
+# => Clean submodule
+cleansub: $(CLEANSUBDIRS)
+$(CLEANSUBDIRS): 
+	$(MAKE) -C $(@:clean-%=%) clean
+
+cleanallsub: $(CLEANSUBDIRS)
+$(CLEANALLSUBDIRS): 
+	$(MAKE) -C $(@:cleanall-%=%) cleanall
+# <= Clean submodule
 
 clean:
-	$(MAKE) -C src/submodule clean
+	make cleansub
 	rm -f *.o
 
 cleanall:
-	$(MAKE) -C src/submodule cleanall
-	rm -f *.o $(EXE) $(ALIB)
+	make cleanallsub
+	rm -f *.o $(EXE)
+
+
+.PHONY: sub $(SUBMODULEDIR)
+.PHONY: cleansub $(CLEANSUBDIRS)
+.PHONY: cleanallsub $(CLEANSUBDIRS)
