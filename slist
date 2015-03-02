@@ -7,15 +7,15 @@ ROOTDIR="."
 SUBDIR="-path ./src/submodule"
 
 if [[ -z "$SUBDIR" ]]; then
-	echo -e "SOURCE = $(find $ROOTDIR -name *.cpp -printf "%f"|xargs echo)" > sourcelist
+	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" > sourcelist
 
-	echo -e "SOURCEPATH = $(find $ROOTDIR -name *.cpp -print|xargs echo)" >> sourcelist
+	echo -e "SOURCEPATH = $(find $ROOTDIR -name "*.cpp" -print|xargs echo)" >> sourcelist
 else
 	echo -e "SOURCE = $(find $ROOTDIR \( $SUBDIR \) \
-		-a -prune -o -name *.cpp -printf "%f"|xargs echo)" > sourcelist
+		-a -prune -o -name "*.cpp" -printf "%f "|xargs echo)" > sourcelist
 
 	echo -e "SOURCEPATH = $(find $ROOTDIR \( $SUBDIR \) \
-		-a -prune -o -name *.cpp -print|xargs echo)" >> sourcelist
+		-a -prune -o -name "*.cpp" -print|xargs echo)" >> sourcelist
 fi
 
 # echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
