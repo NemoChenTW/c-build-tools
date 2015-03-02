@@ -5,7 +5,8 @@ PROJECTDIR = $(shell pwd)
 EXE = $(notdir $(basename $(PROJECTDIR)))
 endif
 
-include sourcelist
+-include sourcelist
+
 ALIB = "lib$(EXE).a"
 OLIB = "lib$(EXE).o"
 
@@ -35,9 +36,14 @@ endif
 
 STATICLIB = ar rcv
 
+SRCLISTSUBDIRS = $(SUBMODULEDIR:%=srclist-%)
 CLEANSUBDIRS = $(SUBMODULEDIR:%=clean-%)
 CLEANALLSUBDIRS = $(SUBMODULEDIR:%=cleanall-%)
 
+.PHONY: sub $(SUBMODULEDIR)
+.PHONY: srclistsub $(SRCLISTSUBDIRS)
+.PHONY: cleansub $(CLEANSUBDIRS)
+.PHONY: cleanallsub $(CLEANALLSUBDIRS)
 
 mainproject: $(EXE)
 
@@ -55,6 +61,17 @@ liba: $(ALIB)
 
 $(ALIB): $(OBJS)
 	$(STATICLIB) $(ALIB) $(OBJS)
+
+# => Generate sourcelist
+srclist:
+	./slist
+	make srclistsub
+
+srclistsub: $(SRCLISTSUBDIRS)
+$(SRCLISTSUBDIRS):
+	$(MAKE) -C $(@:srclist-%=%) srclist
+
+# <= Generate sourcelist
 
 # => Build submodule
 sub: $(SUBMODULEDIR)
@@ -79,8 +96,3 @@ clean:
 cleanall:
 	make cleanallsub
 	rm -f *.o *.a $(EXE) 
-
-
-.PHONY: sub $(SUBMODULEDIR)
-.PHONY: cleansub $(CLEANSUBDIRS)
-.PHONY: cleanallsub $(CLEANSUBDIRS)
