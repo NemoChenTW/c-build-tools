@@ -2,22 +2,22 @@
 
 ROOTDIR="."
 
-# 此項目尚須手動修改
-# SUBDIR="-path ./src/submodule -o -path ./src/testDir"
-SUBDIR="-path ./src/submodule"
-
 SUBMODULEDIR=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo)
 SUBMODULELOC=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs -i echo -L{} | xargs echo)
 SUBMODULE=$(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) | xargs -i echo -l{} | xargs echo)
 
+if [[ -n "$SUBMODULEDIR" ]]; then
+	SUBDIR="-path ./${SUBMODULEDIR/ / -o -path .\/}"
+fi
+	echo "SUBDIR = $SUBDIR" > sourcelist
 
 if [[ -z "$SUBDIR" ]]; then
-	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" > sourcelist
+	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" >> sourcelist
 
 	echo -e "SOURCEPATH = $(find $ROOTDIR -name "*.cpp" -print|xargs echo)" >> sourcelist
 else
 	echo -e "SOURCE = $(find $ROOTDIR \( $SUBDIR \) \
-		-a -prune -o -name "*.cpp" -printf "%f "|xargs echo)" > sourcelist
+		-a -prune -o -name "*.cpp" -printf "%f "|xargs echo)" >> sourcelist
 
 	echo -e "SOURCEPATH = $(find $ROOTDIR \( $SUBDIR \) \
 		-a -prune -o -name "*.cpp" -print|xargs echo)" >> sourcelist
