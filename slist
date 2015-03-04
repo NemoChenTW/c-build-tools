@@ -20,11 +20,11 @@ fi
 
 # echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
 
-echo -e "SUBMODULEDIR = $(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") \
-	| xargs echo)" >> sourcelist
+SUBMODULEDIR=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo)
+SUBMODULELOC=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs -i echo -L{} | xargs echo)
+SUBMODULE=$(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) | xargs -i echo -l{} | xargs echo)
 
-echo -e "SUBMODULELOC = $(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") \
-	| xargs -i echo -L{} | xargs echo)" >> sourcelist
+echo -e "SUBMODULEDIR = $SUBMODULEDIR" >> sourcelist
+echo -e "SUBMODULELOC = $SUBMODULELOC" >> sourcelist
+echo -e "SUBMODULE = $SUBMODULE" >> sourcelist
 
-echo -e "SUBMODULE = $(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) \
-	| xargs -i echo -l{} | xargs echo)" >> sourcelist
