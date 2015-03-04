@@ -8,8 +8,8 @@ SUBMODULE=$(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name s
 
 if [[ -n "$SUBMODULEDIR" ]]; then
 	SUBDIR="-path ./${SUBMODULEDIR/ / -o -path .\/}"
-fi
 	echo "SUBDIR = $SUBDIR" > sourcelist
+fi
 
 if [[ -z "$SUBDIR" ]]; then
 	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" >> sourcelist
