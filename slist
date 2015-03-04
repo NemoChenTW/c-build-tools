@@ -6,6 +6,11 @@ ROOTDIR="."
 # SUBDIR="-path ./src/submodule -o -path ./src/testDir"
 SUBDIR="-path ./src/submodule"
 
+SUBMODULEDIR=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo)
+SUBMODULELOC=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs -i echo -L{} | xargs echo)
+SUBMODULE=$(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) | xargs -i echo -l{} | xargs echo)
+
+
 if [[ -z "$SUBDIR" ]]; then
 	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" > sourcelist
 
@@ -19,10 +24,6 @@ else
 fi
 
 # echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
-
-SUBMODULEDIR=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo)
-SUBMODULELOC=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs -i echo -L{} | xargs echo)
-SUBMODULE=$(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) | xargs -i echo -l{} | xargs echo)
 
 echo -e "SUBMODULEDIR = $SUBMODULEDIR" >> sourcelist
 echo -e "SUBMODULELOC = $SUBMODULELOC" >> sourcelist
