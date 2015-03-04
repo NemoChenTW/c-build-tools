@@ -12,7 +12,7 @@ if [[ -n "$SUBMODULEDIR" ]]; then
 fi
 
 if [[ -z "$SUBDIR" ]]; then
-	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" >> sourcelist
+	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" > sourcelist
 
 	echo -e "SOURCEPATH = $(find $ROOTDIR -name "*.cpp" -print|xargs echo)" >> sourcelist
 else
