@@ -1,13 +1,10 @@
 #!/bin/bash
 
-ROOTDIR="src"
-
-#Use for recongizing submodules.
-IDENTITY="makefile"
-
-SUBMODULEDIR=$(dirname $(find $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTITY -a -not -path $ROOTDIR -printf "%p ") | xargs echo)
-SUBMODULELOC=$(dirname $(find $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTITY -a -not -path $ROOTDIR -printf "%p ") | xargs -i echo -L{} | xargs echo)
-SUBMODULE=$(basename -a $(dirname `find $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTITY -a -not -path $ROOTDIR -print`) | xargs -i echo -l{} | xargs echo)
+if [[ -f  c-build-tools/subInfo ]]; then
+	source c-build-tools/subInfo
+else
+	source subInfo
+fi
 
 if [[ -n "$SUBMODULEDIR" ]]; then
 	SUBDIR="-path ${SUBMODULEDIR// / -o -path }"
