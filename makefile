@@ -5,7 +5,7 @@ PROJECTDIR = $(shell pwd)
 EXE = $(notdir $(basename $(PROJECTDIR)))
 endif
 
--include sourcelist
+-include source.mk
 
 ALIB = "lib$(EXE).a"
 OLIB = "lib$(EXE).o"
