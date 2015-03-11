@@ -1,8 +1,14 @@
 #!/bin/bash
 
+if [[ -f  c-build-tools/subInfo ]]; then
+	source c-build-tools/subInfo
+else
+	source subInfo
+fi
+
 rootPath=`pwd`
 
-submoduleArray=( $(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo) )
+submoduleArray=( $SUBMODULEDIR )
 branchName=$1
 
 git checkout $branchName
