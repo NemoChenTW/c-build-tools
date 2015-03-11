@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ROOTDIR="."
+ROOTDIR="src"
 
-SUBMODULEDIR=$(dirname $(find $ROOTDIR \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo)
-SUBMODULELOC=$(dirname $(find $ROOTDIR \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs -i echo -L{} | xargs echo)
-SUBMODULE=$(basename -a $(dirname `find $ROOTDIR \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) | xargs -i echo -l{} | xargs echo)
+SUBMODULEDIR=$(dirname $(find $ROOTDIR \( -path *.git \) -a -prune -o -name src -a -not -path $ROOTDIR -printf "%p ") | xargs echo)
+SUBMODULELOC=$(dirname $(find $ROOTDIR \( -path *.git \) -a -prune -o -name src -a -not -path $ROOTDIR -printf "%p ") | xargs -i echo -L{} | xargs echo)
+SUBMODULE=$(basename -a $(dirname `find $ROOTDIR \( -path *.git \) -a -prune -o -name src -a -not -path $ROOTDIR -print`) | xargs -i echo -l{} | xargs echo)
 
 if [[ -n "$SUBMODULEDIR" ]]; then
-	SUBDIR="-path ./${SUBMODULEDIR// / -o -path .\/}"
+	SUBDIR="-path ${SUBMODULEDIR// / -o -path }"
 	echo "SUBDIR = $SUBDIR" > sourcelist
 fi
 
