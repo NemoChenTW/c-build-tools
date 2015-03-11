@@ -1,13 +1,13 @@
 #!/bin/bash
 
-rootDir=`pwd`
+rootPath=`pwd`
 
 submoduleArray=( $(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -printf "%P ") | xargs echo) )
 branchName=$1
 
 git checkout $branchName
 for element in "${submoduleArray[@]}"; do
-	cd $rootDir
+	cd $rootPath
 	cd $element
 	echo "In submodule $(basename $element)"
 	git checkout $branchName
