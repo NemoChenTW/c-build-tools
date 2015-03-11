@@ -10,6 +10,8 @@ endif
 ALIB = "lib$(EXE).a"
 OLIB = "lib$(EXE).o"
 
+
+# => This section can include outer file for personal setting.
 INCLUDEPATH = -Isrc/
 INCLUDEFILE = 
 
@@ -17,6 +19,9 @@ LIB =
 LIBPATH = 
 
 SO = 
+-include lib.mk
+# <= This section can include outer file for personal setting.
+
 SUBLIB = src/submodule/*.a
 
 
