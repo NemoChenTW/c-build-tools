@@ -2,7 +2,7 @@
 C++ build tools for the project include sub-module.
 
 ## Quick Use ##
-First you have to ensure the projet file system architecture is correct.
+First you have to ensure the project [file system](https://github.com/NemoChenTW/c-build-tools#file-system) architecture is correct.
 
 ### Build ###
   1. `make srclist`
