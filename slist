@@ -7,7 +7,7 @@ SUBMODULELOC=$(dirname $(find . \( -path *.git \) -a -prune -o -name src -a -not
 SUBMODULE=$(basename -a $(dirname `find . \( -path *.git \) -a -prune -o -name src -a -not -path ./src -print`) | xargs -i echo -l{} | xargs echo)
 
 if [[ -n "$SUBMODULEDIR" ]]; then
-	SUBDIR="-path ./${SUBMODULEDIR/ / -o -path .\/}"
+	SUBDIR="-path ./${SUBMODULEDIR// / -o -path .\/}"
 	echo "SUBDIR = $SUBDIR" > sourcelist
 fi
 
