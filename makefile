@@ -19,14 +19,12 @@ LIB =
 LIBPATH = 
 
 SO = 
--include lib.mk
+
+LINKFLAG += -o
+CCFLAG += -g -c
+
+-include project.mk
 # <= This section can include outer file for personal setting.
-
-SUBLIB = src/submodule/*.a
-
-
-LINKFLAG = -o
-CCFLAG = -g -c
 
 OBJS = $(SOURCE:.cpp=.o)
 
