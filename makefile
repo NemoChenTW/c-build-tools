@@ -48,7 +48,11 @@ CLEANALLSUBDIRS = $(SUBMODULEDIR:%=cleanall-%)
 .PHONY: cleansub $(CLEANSUBDIRS)
 .PHONY: cleanallsub $(CLEANALLSUBDIRS)
 
-mainproject: $(EXE)
+mainproject:
+	$(MAKE) exe
+	
+exe: $(EXE)
+
 
 all:
 	make sub
