@@ -48,15 +48,27 @@ CLEANALLSUBDIRS = $(SUBMODULEDIR:%=cleanall-%)
 .PHONY: cleansub $(CLEANSUBDIRS)
 .PHONY: cleanallsub $(CLEANALLSUBDIRS)
 
+##Color Setting
+lightYellow="\\033[33\;1m"
+lightGreen="\\033[32\;1m"
+lightRed="\\033[31\;1m"
+colorEnd="\\033[0m"
+
+#Message using color
+colorStart=$(lightYellow)
+##Color Setting
+
+SUCCESSMSG="$(lightYellow)Build success.$(colorEnd)"
+
 mainproject:
-	$(MAKE) exe
+	$(MAKE) exe && echo $(SUCCESSMSG)
 	
 exe: $(EXE)
 
 
 all:
-	make sub
-	make mainproject
+	$(MAKE) sub
+	$(MAKE) mainproject && echo $(SUCCESSMSG)
 
 $(EXE): $(OBJS)
 	$(CC) $(LINKFLAG) $(EXE) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
@@ -83,7 +95,7 @@ $(SRCLISTSUBDIRS):
 # => Build submodule
 sub: $(SUBMODULEDIR)
 $(SUBMODULEDIR):
-	$(MAKE) liba -C $@
+	$(MAKE) liba -C $@ && echo $(SUCCESSMSG)
 # <= Build submodule
 
 # => Clean submodule
