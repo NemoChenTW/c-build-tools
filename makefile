@@ -83,7 +83,7 @@ $(ALIB): $(OBJS)
 
 # => Generate sourcelist
 srclist:
-	./slist
+	if [ -f slist ]; then ./slist ;else ./c-build-tools/slist; fi;
 	make srclistsub
 
 srclistsub: $(SRCLISTSUBDIRS)
