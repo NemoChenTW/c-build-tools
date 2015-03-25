@@ -10,8 +10,8 @@ sourcelist="source.mk"
 
 if [[ -n "$SUBMODULEDIR" ]]; then
 	SUBDIR="-path ${SUBMODULEDIR// / -o -path }"
-	echo "SUBDIR = $SUBDIR" > $sourcelist
 fi
+echo "SUBDIR = $SUBDIR" > $sourcelist
 
 if [[ -z "$SUBDIR" ]]; then
 	SOUCE_ELE=$(find $ROOTDIR -name "*.cpp" -printf "%P ")
@@ -23,7 +23,7 @@ else
 	SOURCEPATH=$(find $ROOTDIR \( $SUBDIR \) -a -prune -o -name "*.cpp" -print | sort | xargs echo)
 fi
 
-echo -e "SOURCE = $SOURCE" > $sourcelist
+echo -e "SOURCE = $SOURCE" >> $sourcelist
 echo -e "SOURCEPATH = $SOURCEPATH" >> $sourcelist
 
 echo -e "SUBMODULEDIR = $SUBMODULEDIR" >> $sourcelist
