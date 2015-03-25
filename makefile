@@ -58,7 +58,7 @@ colorEnd="\\033[0m"
 colorStart=$(lightYellow)
 ##Color Setting
 
-SUCCESSMSG="$(lightYellow)Build success.$(colorEnd)"
+SUCCESSMSG="$(lightGreen)Build success.$(colorEnd)"
 
 mainproject:
 	$(MAKE) exe && echo $(SUCCESSMSG)
