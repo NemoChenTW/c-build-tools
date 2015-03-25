@@ -8,8 +8,8 @@ IDENTITY="makefile"
 submoduleResult=$(find $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTITY -a -not -path $ROOTDIR -a -not -path "*c-build-tools*" -printf "%p ")
 
 if [[ -n "$submoduleResult" ]]; then
-	SUBMODULEDIR=$(dirname $submoduleResult | xargs echo)
-	SUBMODULELOC=$(dirname $submoduleResult | xargs -i echo -L{} | xargs echo)
-	SUBMODULE=$(basename -a $(dirname $submoduleResult) | xargs -i echo -l{} | xargs echo)
+	SUBMODULEDIR=$(dirname $submoduleResult | sort | xargs echo)
+	SUBMODULELOC=$(dirname $submoduleResult | xargs -i echo -L{} | sort | xargs echo)
+	SUBMODULE=$(basename -a $(dirname $submoduleResult) | xargs -i echo -l{} | sort | xargs echo)
 fi
 

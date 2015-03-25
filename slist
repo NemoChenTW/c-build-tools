@@ -14,18 +14,17 @@ if [[ -n "$SUBMODULEDIR" ]]; then
 fi
 
 if [[ -z "$SUBDIR" ]]; then
-	echo -e "SOURCE = $(find $ROOTDIR -name "*.cpp" -printf "%f "|xargs echo)" > $sourcelist
-
-	echo -e "SOURCEPATH = $(find $ROOTDIR -name "*.cpp" -print|xargs echo)" >> $sourcelist
+	SOUCE_ELE=$(find $ROOTDIR -name "*.cpp" -printf "%P ")
+	SOURCE=$(basename -a $SOUCE_ELE | sort | xargs echo)
+	SOURCEPATH=$(find $ROOTDIR -name "*.cpp" -print| sort  | xargs echo)
 else
-	echo -e "SOURCE = $(find $ROOTDIR \( $SUBDIR \) \
-		-a -prune -o -name "*.cpp" -printf "%f "|xargs echo)" >> $sourcelist
-
-	echo -e "SOURCEPATH = $(find $ROOTDIR \( $SUBDIR \) \
-		-a -prune -o -name "*.cpp" -print|xargs echo)" >> $sourcelist
+	SOUCE_ELE=$(find $ROOTDIR \( $SUBDIR \) -a -prune -o -name "*.cpp" -printf "%P ")
+	SOURCE=$(basename -a $SOUCE_ELE | sort | xargs echo)
+	SOURCEPATH=$(find $ROOTDIR \( $SUBDIR \) -a -prune -o -name "*.cpp" -print | sort | xargs echo)
 fi
 
-# echo -e "DIR =  `dirname $(find $ROOTDIR -name "*.cpp" -printf "%P ") | sort | uniq | xargs echo`" >> sourcelist
+echo -e "SOURCE = $SOURCE" > $sourcelist
+echo -e "SOURCEPATH = $SOURCEPATH" >> $sourcelist
 
 echo -e "SUBMODULEDIR = $SUBMODULEDIR" >> $sourcelist
 echo -e "SUBMODULELOC = $SUBMODULELOC" >> $sourcelist
