@@ -1,27 +1,42 @@
 #!/bin/bash
 
-if [[ -f  c-build-tools/subInfo ]]; then
-	source c-build-tools/subInfo
+if [[ -f  c-build-tools/exclude ]]; then
+	source c-build-tools/exclude
 else
-	source subInfo
+	source exclude
 fi
 
 sourcelist="source.mk"
+EXCLUDEDIR=""
 
 if [[ -n "$SUBMODULEDIR" ]]; then
 	SUBDIR="-path ${SUBMODULEDIR// / -o -path }"
 fi
 echo "SUBDIR = $SUBDIR" > $sourcelist
+#要排除的版本資料夾從exclude取得, 印出確認
+#echo "EXCLUDEVERSION=$EXCLUDEVERSION"
 
-if [[ -z "$SUBDIR" ]]; then
+#合併SUBDIR和EXCLUDEVERSION到EXCLUDEDIR
+if [[ -n "$SUBDIR" ]] && [[ -n "$EXCLUDEVERSION" ]]; then
+	EXCLUDEDIR+="$SUBDIR -o $EXCLUDEVERSION"
+elif [[ -z "$SUBDIR" ]]; then
+	EXCLUDEDIR+="$EXCLUDEVERSION"
+elif [[ -z "$EXCLUDEVERSION" ]]; then
+	EXCLUDEDIR+="$SUBDIR"
+fi
+#echo "EXCLUDEDIR+EXCLUDEVERSION=$EXCLUDEDIR"
+
+
+if [[ -z "$EXCLUDEDIR" ]]; then
 	SOUCE_ELE=$(find $ROOTDIR -name "*.cpp" -printf "%P ")
 	SOURCE=$(basename -a $SOUCE_ELE | sort | xargs echo)
 	SOURCEPATH=$(find $ROOTDIR -name "*.cpp" -print| sort  | xargs echo)
 else
-	SOUCE_ELE=$(find $ROOTDIR \( $SUBDIR \) -a -prune -o -name "*.cpp" -printf "%P ")
+	SOUCE_ELE=$(find $ROOTDIR \( $EXCLUDEDIR \) -prune -o -name "*.cpp" -printf "%P ")
 	SOURCE=$(basename -a $SOUCE_ELE | sort | xargs echo)
-	SOURCEPATH=$(find $ROOTDIR \( $SUBDIR \) -a -prune -o -name "*.cpp" -print | sort | xargs echo)
+	SOURCEPATH=$(find $ROOTDIR \( $EXCLUDEDIR \) -prune -o -name "*.cpp" -print| sort  | xargs echo)
 fi
+
 
 echo -e "SOURCE = $SOURCE" >> $sourcelist
 echo -e "SOURCEPATH = $SOURCEPATH" >> $sourcelist
