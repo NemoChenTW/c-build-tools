@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [[ -f  c-build-tools/subInfo ]]; then
+	source c-build-tools/subInfo
+else
+	source subInfo
+fi
+
+if [[ -f version ]];then
+	source version
+fi
+versionNum="${#ALLVERSION[@]}"
+EXCLUDEVERSION=""
+num=1
+
+for ver in ${ALLVERSION[@]}
+do
+	#將現在版本從所有版本中過濾掉
+	if [ $ver != $EXTACTVERSION ]; then
+		EXCLUDEVERSION+="$ROOTDIR/$ver"
+		#num控制最後一個版本後不接-o -path, 
+		if [ $num -lt $versionNum ]; then
+			EXCLUDEVERSION+=" "
+		fi
+	fi
+	num=$((num+1))
+done
+
+if [[ -n "$EXCLUDEVERSION" ]]; then
+	EXCLUDEVERSION="-path ${EXCLUDEVERSION// / -o -path }"
+fi
+
+
+
