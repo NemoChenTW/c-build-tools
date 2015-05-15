@@ -11,19 +11,19 @@ if [[ -f version ]];then
 fi
 versionNum="${#ALLVERSION[@]}"
 EXCLUDEVERSION=""
-num=1
+num=0
 
 for ver in ${ALLVERSION[@]}
 do
 	#將現在版本從所有版本中過濾掉
-	if [ $ver != $EXTACTVERSION ]; then
-		EXCLUDEVERSION+="$ROOTDIR/$ver"
-		#num控制最後一個版本後不接-o -path, 
-		if [ $num -lt $versionNum ]; then
-			EXCLUDEVERSION+=" "
+	if [ $ver != $EXTRACTVERSION ]; then
+		if [[ $num == $((0)) ]]; then
+			EXCLUDEVERSION="$ROOTDIR/$ver"
+		else
+			EXCLUDEVERSION+=" $ROOTDIR/$ver"
 		fi
+		num=$((num+1))
 	fi
-	num=$((num+1))
 done
 
 if [[ -n "$EXCLUDEVERSION" ]]; then
