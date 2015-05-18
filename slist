@@ -45,3 +45,6 @@ echo -e "SUBMODULEDIR = $SUBMODULEDIR" >> $sourcelist
 echo -e "SUBMODULELOC = $SUBMODULELOC" >> $sourcelist
 echo -e "SUBMODULE = $SUBMODULE" >> $sourcelist
 
+if [[ -n $EXTRACTVERSION ]]; then
+	echo -e "CCFLAG += -D${EXTRACTVERSION}_VER" >> $sourcelist
+fi
