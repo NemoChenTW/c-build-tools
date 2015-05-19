@@ -43,7 +43,7 @@ echo -e "SOURCEPATH = $SOURCEPATH" >> $sourcelist
 
 echo -e "SUBMODULEDIR = $SUBMODULEDIR" >> $sourcelist
 echo -e "SUBMODULELOC = $SUBMODULELOC" >> $sourcelist
-echo -e "SUBMODULE = $SUBMODULE" >> $sourcelist
+echo -e "SUBMODULE = -Wl,--start-group $SUBMODULE -Wl,--end-group" >> $sourcelist
 
 if [[ -n $EXTRACTVERSION ]]; then
 	echo -e "CCFLAG += -D${EXTRACTVERSION}_VER" >> $sourcelist
