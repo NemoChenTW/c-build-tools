@@ -13,6 +13,13 @@ versionNum="${#ALLVERSION[@]}"
 EXCLUDEVERSION=""
 num=0
 
+#If there is any input version, use it.
+assignedVERSION=$1
+if [[ -n $assignedVERSION ]]; then
+	EXTRACTVERSION=$assignedVERSION
+	echo "Assigned version: $EXTRACTVERSION"
+fi
+
 for ver in ${ALLVERSION[@]}
 do
 	#將現在版本從所有版本中過濾掉

@@ -1,9 +1,11 @@
 #!/bin/bash
 
+assignedVERSION=$1
+
 if [[ -f  c-build-tools/exclude ]]; then
-	source c-build-tools/exclude
+	source c-build-tools/exclude $assignedVERSION
 else
-	source exclude
+	source exclude $assignedVERSION
 fi
 
 sourcelist="source.mk"
