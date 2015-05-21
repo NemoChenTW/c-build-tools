@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [[ -f  c-build-tools/subInfo ]]; then
+	source c-build-tools/subInfo
+else
+	source subInfo
+fi
+
+rootPath=`pwd`
+
+submoduleArray=( $SUBMODULEDIR )
+branchName=$1
+
+#git checkout $branchName
+gitk --all &
+for element in "${submoduleArray[@]}"; do
+	cd $rootPath
+	cd $element
+	echo "In submodule $(basename $element)"
+	#git checkout $branchName
+	gitk --all &
+done
