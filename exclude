@@ -26,8 +26,10 @@ do
 	if [ $ver != $EXTRACTVERSION ]; then
 		if [[ $num == $((0)) ]]; then
 			EXCLUDEVERSION="$ROOTDIR/$ver"
+			EXCLUDEVERSION+=" $ROOTDIR/*/$ver"
 		else
 			EXCLUDEVERSION+=" $ROOTDIR/$ver"
+			EXCLUDEVERSION+=" $ROOTDIR/*/$ver"
 		fi
 		num=$((num+1))
 	fi
