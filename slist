@@ -30,13 +30,13 @@ fi
 
 
 if [[ -z "$EXCLUDEDIR" ]]; then
-	SOUCE_ELE=$(find -L $ROOTDIR -name "*.cpp" -printf "%P ")
+	SOUCE_ELE=$(find -L $ROOTDIR \( -name "*.cpp" -o -name "*.c" \) -printf "%P ")
 	SOURCE=$(basename -a $SOUCE_ELE | sort | xargs echo)
-	SOURCEPATH=$(find -L $ROOTDIR -name "*.cpp" -print| sort  | xargs echo)
+	SOURCEPATH=$(find -L $ROOTDIR \( -name "*.cpp" -o -name "*.c" \) -print| sort  | xargs echo)
 else
-	SOUCE_ELE=$(find -L $ROOTDIR \( $EXCLUDEDIR \) -prune -o -name "*.cpp" -printf "%P ")
+	SOUCE_ELE=$(find -L $ROOTDIR \( $EXCLUDEDIR \) -prune -o \( -name "*.cpp" -o -name "*.c" \) -printf "%P ")
 	SOURCE=$(basename -a $SOUCE_ELE | sort | xargs echo)
-	SOURCEPATH=$(find -L $ROOTDIR \( $EXCLUDEDIR \) -prune -o -name "*.cpp" -print| sort  | xargs echo)
+	SOURCEPATH=$(find -L $ROOTDIR \( $EXCLUDEDIR \) -prune -o \( -name "*.cpp" -o -name "*.c" \) -print| sort  | xargs echo)
 fi
 
 
