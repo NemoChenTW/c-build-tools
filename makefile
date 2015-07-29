@@ -77,10 +77,12 @@ $(EXE): $(OBJS)
 $(OBJS): $(SOURCEPATH)
 	$(CC) $(CCFLAG) $(SOURCEPATH) $(INCLUDEPATH) $(INCLUDEFILE)
 
+# => Static Library
 liba: $(ALIB)
 
 $(ALIB): $(OBJS)
 	$(STATICLIB) $(ALIB) $(OBJS)
+# <= Static Library
 
 # => Generate sourcelist
 srclist:
