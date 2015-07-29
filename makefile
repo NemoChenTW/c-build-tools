@@ -94,7 +94,11 @@ libso:
 libSharedLibrary: $(OLIB)
 
 $(OLIB): $(OBJS)
+ifdef SOVER
+	$(CC) -shared -Wl,-soname,$(OLIB).$(SOVER) $(LINKFLAG) $(OLIB) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
+else
 	$(CC) -shared $(LINKFLAG) $(OLIB) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
+endif
 # <= Shared Library
 
 
