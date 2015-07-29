@@ -26,6 +26,7 @@ CCFLAG += -g -c
 -include project.mk
 # <= This section can include outer file for personal setting.
 
+
 midterm_OBJS = $(SOURCE:.cpp=.o)
 OBJS = $(midterm_OBJS:.c=.o)
 
@@ -75,7 +76,8 @@ $(EXE): $(OBJS)
 	$(CC) $(LINKFLAG) $(EXE) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
 
 $(OBJS): $(SOURCEPATH)
-	$(CC) $(CCFLAG) $(SOURCEPATH) $(INCLUDEPATH) $(INCLUDEFILE)
+	$(CC) $(CCFLAG) $(SHAREDFLAG) $(SOURCEPATH) $(INCLUDEPATH) $(INCLUDEFILE)
+
 
 # => Static Library
 liba: $(ALIB)
@@ -83,6 +85,19 @@ liba: $(ALIB)
 $(ALIB): $(OBJS)
 	$(STATICLIB) $(ALIB) $(OBJS)
 # <= Static Library
+
+
+# => Shared Library
+libso:
+	$(MAKE) libSharedLibrary SHAREDFLAG=-fPIC
+
+libSharedLibrary: $(OLIB)
+
+$(OLIB): $(OBJS)
+	$(CC) -shared $(LINKFLAG) $(OLIB) $(OBJS) $(SUBMODULELOC) $(SUBMODULE) $(LIB) $(LIBPATH) $(SO)
+# <= Shared Library
+
+
 
 # => Generate sourcelist
 srclist:
@@ -95,11 +110,13 @@ $(SRCLISTSUBDIRS):
 
 # <= Generate sourcelist
 
+
 # => Build submodule
 sub: $(SUBMODULEDIR)
 $(SUBMODULEDIR):
 	$(MAKE) liba -C $@ && echo $(SUCCESSMSG)
 # <= Build submodule
+
 
 # => Clean submodule
 cleansub: $(CLEANSUBDIRS)
@@ -110,6 +127,7 @@ cleanallsub: $(CLEANALLSUBDIRS)
 $(CLEANALLSUBDIRS): 
 	$(MAKE) -C $(@:cleanall-%=%) cleanall
 # <= Clean submodule
+
 
 clean:
 	make cleansub
