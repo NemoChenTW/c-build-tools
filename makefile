@@ -115,4 +115,4 @@ clean:
 
 cleanall:
 	make cleanallsub
-	rm -f *.o *.a $(EXE) 
+	rm -f *.o *.a *.so $(EXE) 
