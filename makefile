@@ -8,7 +8,7 @@ endif
 -include source.mk
 
 ALIB = "lib$(EXE).a"
-OLIB = "lib$(EXE).o"
+OLIB = lib$(EXE).so
 
 
 # => This section can include outer file for personal setting.
