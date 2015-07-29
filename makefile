@@ -26,7 +26,8 @@ CCFLAG += -g -c
 -include project.mk
 # <= This section can include outer file for personal setting.
 
-OBJS = $(SOURCE:.cpp=.o)
+midterm_OBJS = $(SOURCE:.cpp=.o)
+OBJS = $(midterm_OBJS:.c=.o)
 
 OS := $(shell uname)
 ifeq ($(OS),Darwin)
