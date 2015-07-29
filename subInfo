@@ -13,3 +13,6 @@ if [[ -n "$submoduleResult" ]]; then
 	SUBMODULE=$(basename -a $(dirname $submoduleResult) | xargs -i echo -l{} | sort | xargs echo)
 fi
 
+
+#Identify real git module for script gitFunction and gitk.
+gitSubmodule=$(dirname $(find $ROOTDIR -name ".git" -printf "%p ") | sort | xargs echo)

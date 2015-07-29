@@ -8,7 +8,7 @@ fi
 
 rootPath=`pwd`
 
-submoduleArray=( $SUBMODULEDIR )
+submoduleArray=( $gitSubmodule )
 branchName=$1
 
 #git checkout $branchName
