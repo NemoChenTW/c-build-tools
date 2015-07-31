@@ -80,7 +80,10 @@ $(OBJS): $(SOURCEPATH)
 
 
 # => Static Library
-liba: $(ALIB)
+liba:
+	$(MAKE) libStaticLibrary && echo $(SUCCESSMSG)
+
+libStaticLibrary: $(ALIB)
 
 $(ALIB): $(OBJS)
 	$(STATICLIB) $(ALIB) $(OBJS)
@@ -89,7 +92,7 @@ $(ALIB): $(OBJS)
 
 # => Shared Library
 libso:
-	$(MAKE) libSharedLibrary SHAREDFLAG=-fPIC
+	$(MAKE) libSharedLibrary SHAREDFLAG=-fPIC && echo $(SUCCESSMSG)
 
 libSharedLibrary: $(OLIB)
 
