@@ -5,5 +5,5 @@ EXE=$(basename $PROJECTDIR)
 
 make cleanall
 make srclist
-make libso && make -f Makefile.test && ./$EXE
+make libso && make -f c-build-tools/Makefile.test && ./$EXE
 
