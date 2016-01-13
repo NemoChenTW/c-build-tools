@@ -1,0 +1,9 @@
+#!/bin/bash
+
+PROJECTDIR=`pwd`
+EXE=$(basename $PROJECTDIR)
+
+make cleanall
+make srclist
+make libso && make -f Makefile.test && ./$EXE
+
