@@ -5,7 +5,7 @@ ROOTDIR="src"
 #Use for recongizing submodules.
 IDENTITY="makefile"
 
-submoduleResult=$(find -L $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTITY -a -not -path $ROOTDIR -a -not -path "*c-build-tools/*" -a -not -path "*test/*" -printf "%p ")
+submoduleResult=$(find -L $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTITY -a -not -path $ROOTDIR -a -not -path "*c-build-tools/*" -a -not -path "*test/*" -a -not -path "*tool/*" -printf "%p ")
 
 if [[ -n "$submoduleResult" ]]; then
 	SUBMODULEDIR=$(dirname $submoduleResult | sort | xargs echo)
