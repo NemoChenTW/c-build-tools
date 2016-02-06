@@ -21,7 +21,7 @@ LIBPATH =
 SO = 
 
 LINKFLAG += -o
-CCFLAG += -g -c
+override CCFLAG += -g -c
 
 -include project.mk
 # <= This section can include outer file for personal setting.
