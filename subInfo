@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [[ uname=="Darwin" ]]; then
+	if [[ -f  c-build-tools/Darwin/dirname.sh ]]; then
+		alias dirname='c-build-tools/Darwin/dirname.sh'
+	else
+		alias dirname='Darwin/dirname.sh'
+	fi
+fi
+
+
+
 ROOTDIR="src"
 
 #Use for recongizing submodules.
@@ -9,8 +19,8 @@ submoduleResult=$(find -L $ROOTDIR \( -path *.git \) -a -prune -o -name $IDENTIT
 
 if [[ -n "$submoduleResult" ]]; then
 	SUBMODULEDIR=$(dirname $submoduleResult | sort | xargs echo)
-	SUBMODULELOC=$(dirname $submoduleResult | xargs -i echo -L{} | sort | xargs echo)
-	SUBMODULE=$(basename -a $(dirname $submoduleResult) | xargs -i echo -l{} | sort | xargs echo)
+	SUBMODULELOC=$(dirname $submoduleResult | xargs -I {} echo -L{} | sort | xargs echo)
+	SUBMODULE=$(basename -a $(dirname $submoduleResult) | xargs -I {} echo -l{} | sort | xargs echo)
 fi
 
 
