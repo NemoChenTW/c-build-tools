@@ -1,4 +1,10 @@
 #!/bin/bash
+if [[ uname=="Darwin" ]]; then
+	echo "OSX"
+	echo "Alias find to gfind"
+	alias find='gfind'
+fi
+
 
 assignedVERSION=$1
 
