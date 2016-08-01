@@ -108,7 +108,7 @@ endif
 
 # => Generate sourcelist
 srclist:
-	if [ -f slist ]; then ./slist $(VER);else ./c-build-tools/slist $(VER); fi;
+	if [ -f slist ]; then sh slist $(VER);else sh c-build-tools/slist $(VER); fi;
 	make srclistsub
 
 srclistsub: $(SRCLISTSUBDIRS)
